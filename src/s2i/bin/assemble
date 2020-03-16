@@ -18,21 +18,21 @@ function virtualenv_bin() {
   fi
 }
 
-# Install pipenv to the separate virtualenv to isolate it
+# Install pipenv or micropipenv to the separate virtualenv to isolate it
 # from system Python packages and packages in the main
 # virtualenv. Executable is simlinked into ~/.local/bin
 # to be accessible. This approach is inspired by pipsi
 # (pip script installer).
-function install_pipenv() {
-  echo "---> Installing pipenv packaging tool ..."
+function install_tool() {
+  echo "---> Installing $1 packaging tool ..."
   {% if spec.version in ["2.7"] %}
   pip install -U virtualenv
   {% endif %}
-  VENV_DIR=$HOME/.local/venvs/pipenv
+  VENV_DIR=$HOME/.local/venvs/$1
   virtualenv_bin "$VENV_DIR"
-  $VENV_DIR/bin/pip --isolated install -U pipenv
+  $VENV_DIR/bin/pip --isolated install -U $1
   mkdir -p $HOME/.local/bin
-  ln -s $VENV_DIR/bin/pipenv $HOME/.local/bin/pipenv
+  ln -s $VENV_DIR/bin/$1 $HOME/.local/bin/$1
 }
 
 set -e
@@ -51,13 +51,16 @@ fix-permissions /opt/app-root -P
 echo "---> Upgrading pip to version 19.3.1 ..."
 pip install -U "pip==19.3.1"
 
-if [[ ! -z "$UPGRADE_PIP_TO_LATEST"{% if spec.version in ["2.7"] %} || ! -z "$ENABLE_PIPENV"{% endif %} ]]; then
+if [[ ! -z "$UPGRADE_PIP_TO_LATEST"{% if spec.version in ["2.7"] %} || ! -z "$ENABLE_PIPENV" || ! -z "$ENABLE_MICROPIPENV"{% endif %} ]]; then
   echo "---> Upgrading pip to latest version ..."
   pip install -U pip setuptools wheel
 fi
 
+# TODO: We should check that both pipenv and micropipenv are not
+# enabled at the same time
+
 if [[ ! -z "$ENABLE_PIPENV" ]]; then
-  install_pipenv
+  install_tool "pipenv"
   echo "---> Installing dependencies via pipenv ..."
   if [[ -f Pipfile ]]; then
     pipenv install --deploy
@@ -65,6 +68,13 @@ if [[ ! -z "$ENABLE_PIPENV" ]]; then
     pipenv install -r requirements.txt
   fi
   # pipenv check
+elif [[ ! -z "$ENABLE_MICROPIPENV"]]; then
+  install_tool "micropipenv"
+  echo "---> Installing dependencies via micropipenv ..."
+  if [[ -f Pipfile ]]; then
+    ARGS=" --deploy"
+  fi
+  micropipenv install $ARGS
 elif [[ -f requirements.txt ]]; then
   echo "---> Installing dependencies ..."
   pip install -r requirements.txt
