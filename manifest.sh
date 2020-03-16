@@ -25,6 +25,9 @@ DISTGEN_RULES="
 
     src=src/test/pipenv-test-app/Pipfile.lock
     dest=test/pipenv-test-app/Pipfile.lock;
+
+    src=test/run
+    dest=test/run;
 "
 
 # Files containing distgen directives, which are used for each
@@ -71,9 +74,6 @@ SYMLINK_RULES="
 
     link_target=../../examples/standalone-test-app
     link_name=test/standalone-test-app;
-
-    link_target=../../test/run
-    link_name=test/run;
 
     link_target=../../test/run-openshift
     link_name=test/run-openshift;
