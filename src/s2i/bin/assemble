@@ -51,7 +51,7 @@ fix-permissions /opt/app-root -P
 echo "---> Upgrading pip to version 19.3.1 ..."
 pip install -U "pip==19.3.1"
 
-if [[ ! -z "$UPGRADE_PIP_TO_LATEST"{% if spec.version in ["2.7"] %} || ! -z "$ENABLE_PIPENV" || ! -z "$ENABLE_MICROPIPENV"{% endif %} ]]; then
+if [[ ! -z "$UPGRADE_PIP_TO_LATEST"{% if spec.version in ["2.7"] %} || ! -z "$ENABLE_PIPENV"{% endif %} ]]; then
   echo "---> Upgrading pip to latest version ..."
   pip install -U pip setuptools wheel
 fi
