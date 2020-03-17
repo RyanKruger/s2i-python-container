@@ -20,6 +20,10 @@ DISTGEN_RULES="
     dest=s2i/bin/usage
     mode=0755;
 
+    src=test/run
+    dest=test/run
+    mode=0755;
+
     src=src/test/pipenv-test-app/Pipfile
     dest=test/pipenv-test-app/Pipfile;
 
@@ -80,9 +84,6 @@ SYMLINK_RULES="
 
     link_target=../../examples/standalone-test-app
     link_name=test/standalone-test-app;
-
-    link_target=../../test/run
-    link_name=test/run;
 
     link_target=../../test/run-openshift
     link_name=test/run-openshift;
