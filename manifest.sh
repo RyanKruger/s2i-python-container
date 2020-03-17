@@ -27,7 +27,8 @@ DISTGEN_RULES="
     dest=test/pipenv-test-app/Pipfile.lock;
 
     src=test/run
-    dest=test/run;
+    dest=test/run
+    mode=0755;
 "
 
 # Files containing distgen directives, which are used for each

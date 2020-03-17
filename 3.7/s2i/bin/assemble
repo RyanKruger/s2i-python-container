@@ -68,9 +68,8 @@ if [[ ! -z "$ENABLE_PIPENV" ]]; then
 elif [[ ! -z "$ENABLE_MICROPIPENV"]]; then
   install_tool "micropipenv"
   echo "---> Installing dependencies via micropipenv ..."
-  ARGS=""
   if [[ -f Pipfile ]]; then
-    ARGS=$ARGS+" --deploy"
+    ARGS=" --deploy"
   fi
   micropipenv install $ARGS
 elif [[ -f requirements.txt ]]; then
