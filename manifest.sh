@@ -25,6 +25,12 @@ DISTGEN_RULES="
 
     src=src/test/pipenv-test-app/Pipfile.lock
     dest=test/pipenv-test-app/Pipfile.lock;
+
+    src=src/test/pipenv-test-app/Pipfile
+    dest=test/micropipenv-test-app/Pipfile;
+
+    src=src/test/pipenv-test-app/Pipfile.lock
+    dest=test/micropipenv-test-app/Pipfile.lock;
 "
 
 # Files containing distgen directives, which are used for each
@@ -53,6 +59,9 @@ SYMLINK_RULES="
 
     link_target=../../examples/locale-test-app
     link_name=test/locale-test-app;
+
+    link_target=../../examples/micropipenv-requirements-test-app
+    link_name=test/micropipenv-requirements-test-app;
 
     link_target=../../examples/mod-wsgi-test-app
     link_name=test/mod-wsgi-test-app;
@@ -109,4 +118,16 @@ COPY_RULES="
 
     src=examples/pipenv-test-app/.gitignore
     dest=test/pipenv-test-app/.gitignore;
+
+    src=examples/micropipenv-test-app/testapp.py
+    dest=test/micropipenv-test-app/testapp.py;
+
+    src=examples/micropipenv-test-app/setup.py
+    dest=test/micropipenv-test-app/setup.py;
+
+    src=examples/micropipenv-test-app/.s2i/environment
+    dest=test/micropipenv-test-app/.s2i/environment;
+
+    src=examples/micropipenv-test-app/.gitignore
+    dest=test/micropipenv-test-app/.gitignore;
 "
