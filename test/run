@@ -36,11 +36,9 @@ container_exists() {
   image_exists $(cat $cid_file)
 }
 
-{% raw %}
 container_ip() {
   docker inspect --format="{{ .NetworkSettings.IPAddress }}" $(cat $cid_file)
 }
-{% endraw %}
 
 run_s2i_build() {
   info "Building the ${1} application image ..."
@@ -204,11 +202,6 @@ for app in ${WEB_APPS[@]}; do
 
   # test application with init wrapper
   CONTAINER_ARGS="-e ENABLE_INIT_WRAPPER=true" test_application
-
-{% if spec.version.startswith("3.") %}
-  # test application with micropipenv
-  CONTAINER_ARGS="-e ENABLE_MICROPIPENV=true" test_application
-{% endif %}
 
   info "All tests for the ${app} finished successfully."
   cleanup ${app}
