@@ -71,10 +71,7 @@ if [[ ! -z "$ENABLE_PIPENV" ]]; then
 elif [[ ! -z "$ENABLE_MICROPIPENV" ]]; then
   install_tool "micropipenv"
   echo "---> Installing dependencies via micropipenv ..."
-  if [[ -f Pipfile ]]; then
-    ARGS=" --deploy"
-  fi
-  micropipenv install $ARGS
+  micropipenv install
 elif [[ -f requirements.txt ]]; then
   echo "---> Installing dependencies ..."
   pip install -r requirements.txt
