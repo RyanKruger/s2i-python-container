@@ -30,7 +30,7 @@ function install_tool() {
   {% endif %}
   VENV_DIR=$HOME/.local/venvs/$1
   virtualenv_bin "$VENV_DIR"
-  $VENV_DIR/bin/pip --isolated install -U $1
+  $VENV_DIR/bin/pip --isolated install -U $1$2  # Combines package name with [extras] if [extras] is defined as $2
   mkdir -p $HOME/.local/bin
   ln -s $VENV_DIR/bin/$1 $HOME/.local/bin/$1
 }
@@ -69,7 +69,7 @@ if [[ ! -z "$ENABLE_PIPENV" ]]; then
   fi
   # pipenv check
 elif [[ ! -z "$ENABLE_MICROPIPENV" ]]; then
-  install_tool "micropipenv"
+  install_tool "micropipenv" "[toml]"
   echo "---> Installing dependencies via micropipenv ..."
   micropipenv install
 elif [[ -f requirements.txt ]]; then
