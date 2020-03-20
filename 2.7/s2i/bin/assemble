@@ -35,6 +35,12 @@ function install_tool() {
 
 set -e
 
+# First of all, check that we don't have disallowed combination of ENVs
+if [[ ! -z "$ENABLE_PIPENV" && ! -z "$ENABLE_PIPENV" ]]; then
+  echo "ERROR: Pipenv and micropipenv cannot be enabled at the same time!"
+  exit 1
+fi
+
 shopt -s dotglob
 echo "---> Installing application source ..."
 mv /tmp/src/* "$HOME"
