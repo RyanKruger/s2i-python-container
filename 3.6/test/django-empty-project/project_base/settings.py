@@ -25,7 +25,7 @@ SECRET_KEY = '8-4^t!0l7$lh+@gr)o0x+8=a2j&b@-$80=u8!_7a7xafheb4!1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['test-django2-test-5.apps.cluster43.demo-evtcorp.com']
+ALLOWED_HOSTS = ['test-django6-test-5.apps.cluster43.demo-evtcorp.com']
 
 
 # Application definition
